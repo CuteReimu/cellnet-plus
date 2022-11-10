@@ -14,5 +14,6 @@
 见 [github.com/davyxu/cellnet/examples](https://github.com/davyxu/cellnet/tree/master/examples) ，但是需要一些改动：
 
 1. 将`import _ "github.com/davyxu/cellnet/peer/tcp"`改为`import _ "github.com/CuteReimu/cellnet-plus/kcp"`
-2. 将`peer.NewGenericPeer("tcp.Connector", "name", addr, queue)`改为`peer.NewGenericPeer("kcp.Connector", "name", addr, queue)`，
+2. 将`peer.NewGenericPeer("tcp.Acceptor", "name", addr, queue)`改为`peer.NewGenericPeer("kcp.Acceptor", "name", addr, queue)`，同理将`"tcp.Acceptor"`改为`"kcp.Acceptor"`
 3. 但`import _ "github.com/davyxu/cellnet/proc/tcp"`和下面的`"tcp.ltv"`无需改动
+4. 注意，在服务端使用`kcp.Acceptor`时，用户需要自行用心跳或者其它形式检测是否超时，超时后在服务端自行调用`Session.Close()`，以防内存泄漏

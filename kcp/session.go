@@ -34,12 +34,6 @@ type kcpSession struct {
 	endNotify func()
 
 	closing int64
-
-	timeOutTick time.Time
-}
-
-func (self *kcpSession) IsAlive() bool {
-	return time.Now().Before(self.timeOutTick)
 }
 
 func (self *kcpSession) setConn(conn net.Conn) {
@@ -153,11 +147,6 @@ func (self *kcpSession) recvLoop() {
 
 			self.ProcEvent(&cellnet.RecvMsgEvent{Ses: self, Msg: closedMsg})
 			break
-		}
-
-		if acceptor, ok := self.pInterface.(*kcpAcceptor); ok {
-			// 续租
-			self.timeOutTick = time.Now().Add(acceptor.sesTimeout)
 		}
 
 		self.ProcEvent(&cellnet.RecvMsgEvent{Ses: self, Msg: msg})
