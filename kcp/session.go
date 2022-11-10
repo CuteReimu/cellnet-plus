@@ -9,7 +9,6 @@ import (
 
 	"github.com/davyxu/cellnet"
 	"github.com/davyxu/cellnet/peer"
-	"github.com/davyxu/cellnet/util"
 )
 
 // Socket会话
@@ -134,10 +133,6 @@ func (self *kcpSession) recvLoop() {
 		}
 
 		if err != nil {
-			if !util.IsEOFOrNetReadError(err) {
-				log.Errorf("session closed, sesid: %d, err: %s", self.ID(), err)
-			}
-
 			self.sendQueue.Add(nil)
 
 			// 标记为手动关闭原因
