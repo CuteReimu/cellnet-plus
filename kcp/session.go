@@ -1,6 +1,7 @@
 package kcp
 
 import (
+	"github.com/xtaci/kcp-go/v5"
 	"net"
 	"sync"
 	"sync/atomic"
@@ -67,10 +68,10 @@ func (self *kcpSession) Close() {
 	conn := self.Conn()
 
 	if conn != nil {
-		// 关闭读
-		tcpConn := conn.(*net.TCPConn)
-		// 关闭读
-		_ = tcpConn.CloseRead()
+		// 关闭
+		tcpConn := conn.(*kcp.UDPSession)
+		// 关闭
+		_ = conn.Close()
 		// 手动读超时
 		_ = tcpConn.SetReadDeadline(time.Now())
 	}
