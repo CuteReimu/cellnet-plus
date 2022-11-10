@@ -3,6 +3,7 @@ package kcp
 import (
 	"net"
 	"strings"
+	"time"
 
 	"github.com/davyxu/cellnet"
 	"github.com/davyxu/cellnet/peer"
@@ -22,6 +23,9 @@ type kcpAcceptor struct {
 
 	// 保存侦听器
 	listener *kcp.Listener
+
+	sesTimeout         time.Duration
+	sessionGCThreshold int
 }
 
 func (self *kcpAcceptor) Port() int {
@@ -52,7 +56,7 @@ func (self *kcpAcceptor) Start() cellnet.Peer {
 
 	if err != nil {
 
-		log.Errorf("#tcp.listen failed(%s) %v", self.Name(), err.Error())
+		log.Errorf("#kcp.listen failed(%s) %v", self.Name(), err.Error())
 
 		self.SetRunning(false)
 
@@ -61,7 +65,7 @@ func (self *kcpAcceptor) Start() cellnet.Peer {
 
 	self.listener = ln.(*kcp.Listener)
 
-	log.Infof("#tcp.listen(%s) %s", self.Name(), self.ListenAddress())
+	log.Infof("#kcp.listen(%s) %s", self.Name(), self.ListenAddress())
 
 	go self.accept()
 
@@ -94,10 +98,15 @@ func (self *kcpAcceptor) accept() {
 
 			// 调试状态时, 才打出accept的具体错误
 			if log.IsDebugEnabled() {
-				log.Errorf("#tcp.accept failed(%s) %v", self.Name(), err.Error())
+				log.Errorf("#kcp.accept failed(%s) %v", self.Name(), err.Error())
 			}
 
 			continue
+		}
+
+		// 会话量超过阈值时，释放内存
+		if self.SessionCount() > self.sessionGCThreshold {
+			self.removeTimeoutSession()
 		}
 
 		// 处理连接进入独立线程, 防止accept无法响应
@@ -111,11 +120,30 @@ func (self *kcpAcceptor) accept() {
 
 }
 
+func (self *kcpAcceptor) removeTimeoutSession() {
+	sesToDelete := make([]*kcpSession, 0, 10)
+
+	self.VisitSession(func(session cellnet.Session) bool {
+		ses := session.(*kcpSession)
+		if !ses.IsAlive() {
+			sesToDelete = append(sesToDelete, ses)
+		}
+		return true
+	})
+
+	for _, ses := range sesToDelete {
+		ses.Close()
+	}
+}
+
 func (self *kcpAcceptor) onNewSession(conn net.Conn) {
 
 	self.ApplySocketOption(conn)
 
 	ses := newSession(conn, self, nil)
+
+	// 续租
+	ses.timeOutTick = time.Now().Add(self.sesTimeout)
 
 	ses.Start()
 
@@ -154,7 +182,9 @@ func init() {
 
 	peer.RegisterPeerCreator(func() cellnet.Peer {
 		p := &kcpAcceptor{
-			SessionManager: new(peer.CoreSessionManager),
+			SessionManager:     new(peer.CoreSessionManager),
+			sesTimeout:         time.Minute,
+			sessionGCThreshold: 100,
 		}
 
 		p.CoreTCPSocketOption.Init()

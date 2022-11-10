@@ -38,7 +38,7 @@ func (self *kcpSyncConnector) Start() cellnet.Peer {
 	// 发生错误时退出
 	if err != nil {
 
-		log.Debugf("#tcp.connect failed(%s)@%d address: %s", self.Name(), self.defaultSes.ID(), self.Address())
+		log.Debugf("#kcp.connect failed(%s)@%d address: %s", self.Name(), self.defaultSes.ID(), self.Address())
 
 		self.ProcEvent(&cellnet.RecvMsgEvent{Ses: self.defaultSes, Msg: &cellnet.SessionConnectError{}})
 		return self

@@ -107,7 +107,7 @@ func (self *kcpConnector) connect(address string) {
 		if err != nil {
 
 			if self.tryConnTimes <= reportConnectFailedLimitTimes {
-				log.Errorf("#tcp.connect failed(%s) %v", self.Name(), err.Error())
+				log.Errorf("#kcp.connect failed(%s) %v", self.Name(), err.Error())
 
 				if self.tryConnTimes == reportConnectFailedLimitTimes {
 					log.Errorf("(%s) continue reconnecting, but mute log", self.Name())
