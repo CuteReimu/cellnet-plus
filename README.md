@@ -16,6 +16,36 @@
 3. 但`import _ "github.com/davyxu/cellnet/proc/tcp"`和下面的`"tcp.ltv"`无需改动
 4. **注意，在服务端使用`kcp.Acceptor`时，用户需要自行用心跳或者其它形式检测是否超时，超时后在服务端自行调用`Session.Close()`，以防内存泄漏**
 
+## peer/tcp
+
+length-value格式的tcp包
+
+```go
+package main
+
+import (
+	"encoding/binary"
+	"github.com/CuteReimu/cellnet-plus/peer/tcp"
+	"github.com/davyxu/cellnet"
+	"github.com/davyxu/cellnet/peer"
+	"github.com/davyxu/cellnet/proc"
+	_ "github.com/davyxu/cellnet/proc/tcp"
+)
+
+func init() {
+	tcp.InitProc(binary.BigEndian, 4) // 下面用"tcp.lv"即可
+}
+
+func main() {
+	const addr = "0.0.0.0:12345"
+	queue := cellnet.NewEventQueue()
+	p := peer.NewGenericPeer("tcp.Acceptor", "name", addr, queue)
+	proc.BindProcessorHandler(p, "tcp.lv", func(ev cellnet.Event) {
+		// ......
+	})
+}
+```
+
 ## proc/udp
 
 Encode和Decode纯udp包，不含length和type(id)数据
