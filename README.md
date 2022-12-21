@@ -1,7 +1,7 @@
 # cellnet-plus
 
 ![](https://img.shields.io/github/languages/top/CuteReimu/cellnet-plus "语言")
-[![](https://img.shields.io/github/workflow/status/CuteReimu/cellnet-plus/Go)](https://github.com/CuteReimu/cellnet-plus/actions/workflows/golangci-lint.yml "代码分析")
+[![](https://img.shields.io/github/actions/workflow/status/CuteReimu/cellnet-plus/golangci-lint.yml?branch=master)](https://github.com/CuteReimu/cellnet-plus/actions/workflows/golangci-lint.yml "代码分析")
 [![](https://img.shields.io/github/contributors/CuteReimu/cellnet-plus)](https://github.com/CuteReimu/cellnet-plus/graphs/contributors "贡献者")
 [![](https://img.shields.io/github/license/CuteReimu/cellnet-plus)](https://github.com/CuteReimu/cellnet-plus/blob/master/LICENSE "许可协议")
 
