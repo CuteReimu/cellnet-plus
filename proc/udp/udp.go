@@ -13,9 +13,9 @@ type UDPMessageTransmitter struct {
 
 func (UDPMessageTransmitter) OnRecvMessage(ses cellnet.Session) (msg interface{}, err error) {
 	data := ses.Raw().(udp.DataReader).ReadData()
-	m := make([]byte, len(data))
-	copy(m, data)
-	msg = &raw.Packet{}
+	m := &raw.Packet{}
+	m.Msg = append(([]byte)(nil), data...)
+	msg = m
 	msglog.WriteRecvLogger(log, "udp", ses, msg)
 	return
 }
