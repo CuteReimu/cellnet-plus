@@ -16,7 +16,7 @@
 3. 但`import _ "github.com/davyxu/cellnet/proc/tcp"`和下面的`"tcp.ltv"`无需改动
 4. **注意，在服务端使用`kcp.Acceptor`时，用户需要自行用心跳或者其它形式检测是否超时，超时后在服务端自行调用`Session.Close()`，以防内存泄漏**
 
-## peer/tcp
+## proc/tcp
 
 length-value格式的tcp包
 
@@ -25,7 +25,9 @@ package main
 
 import (
 	"encoding/binary"
-	"github.com/CuteReimu/cellnet-plus/peer/tcp"
+	"fmt"
+	"github.com/CuteReimu/cellnet-plus/codec/raw"
+	"github.com/CuteReimu/cellnet-plus/proc/tcp"
 	"github.com/davyxu/cellnet"
 	"github.com/davyxu/cellnet/peer"
 	"github.com/davyxu/cellnet/proc"
@@ -41,7 +43,11 @@ func main() {
 	queue := cellnet.NewEventQueue()
 	p := peer.NewGenericPeer("tcp.Acceptor", "name", addr, queue)
 	proc.BindProcessorHandler(p, "tcp.lv", func(ev cellnet.Event) {
-		// ......
+		switch msg := ev.Message().(type) {
+		case *raw.Packet:
+			fmt.Println(msg.Msg)
+			ev.Session().Send(&raw.Packet{Msg: []byte("answer")})
+		}
 	})
 }
 ```
@@ -71,6 +77,7 @@ func main() {
 		switch msg := ev.Message().(type) {
 		case *raw.Packet:
 			fmt.Println(msg.Msg)
+			ev.Session().Send(&raw.Packet{Msg: []byte("answer")})
 		}
 	})
 }

@@ -3,6 +3,7 @@ package tcp
 import (
 	"encoding/binary"
 	"errors"
+	"github.com/CuteReimu/cellnet-plus/codec/raw"
 	"io"
 
 	"github.com/davyxu/cellnet"
@@ -49,7 +50,7 @@ func RecvLVPacket(reader io.Reader, maxPacketSize int, order binary.ByteOrder, b
 		return
 	}
 
-	msg = body
+	msg = &raw.Packet{Msg: body}
 
 	return
 }
@@ -57,7 +58,7 @@ func RecvLVPacket(reader io.Reader, maxPacketSize int, order binary.ByteOrder, b
 // SendLVPacket 发送Length-Value格式的封包流程
 func SendLVPacket(writer io.Writer, _ cellnet.ContextSet, data interface{}, order binary.ByteOrder, bodySize int) error {
 
-	msgData := data.([]byte)
+	msgData := data.(*raw.Packet).Msg
 
 	pkt := make([]byte, bodySize+len(msgData))
 
