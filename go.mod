@@ -5,7 +5,7 @@ go 1.22
 require (
 	github.com/davyxu/cellnet v4.1.0+incompatible
 	github.com/davyxu/golog v0.1.0
-	github.com/xtaci/kcp-go/v5 v5.6.9
+	github.com/xtaci/kcp-go/v5 v5.6.11
 	golang.org/x/crypto v0.25.0
 	google.golang.org/protobuf v1.34.2
 )
