@@ -6,7 +6,7 @@ require (
 	github.com/davyxu/cellnet v4.1.0+incompatible
 	github.com/davyxu/golog v0.1.0
 	github.com/xtaci/kcp-go/v5 v5.6.18
-	golang.org/x/crypto v0.31.0
+	golang.org/x/crypto v0.32.0
 	google.golang.org/protobuf v1.36.2
 )
 
@@ -20,5 +20,5 @@ require (
 	github.com/templexxx/xorsimd v0.4.3 // indirect
 	github.com/tjfoc/gmsm v1.4.1 // indirect
 	golang.org/x/net v0.23.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 )
