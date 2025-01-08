@@ -7,7 +7,7 @@ require (
 	github.com/davyxu/golog v0.1.0
 	github.com/xtaci/kcp-go/v5 v5.6.18
 	golang.org/x/crypto v0.31.0
-	google.golang.org/protobuf v1.36.1
+	google.golang.org/protobuf v1.36.2
 )
 
 require (
