@@ -1,6 +1,8 @@
 module github.com/CuteReimu/cellnet-plus
 
-go 1.23
+go 1.23.0
+
+toolchain go1.23.6
 
 require (
 	github.com/davyxu/cellnet v4.1.0+incompatible
