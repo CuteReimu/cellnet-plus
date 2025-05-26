@@ -50,8 +50,8 @@ github.com/templexxx/xorsimd v0.4.3 h1:9AQTFHd7Bhk3dIT7Al2XeBX5DWOvsUPZCuhyAtNbH
 github.com/templexxx/xorsimd v0.4.3/go.mod h1:oZQcD6RFDisW2Am58dSAGwwL6rHjbzrlu25VDqfWkQg=
 github.com/tjfoc/gmsm v1.4.1 h1:aMe1GlZb+0bLjn+cKTPEvvn9oUEBlJitaZiiBwsbgho=
 github.com/tjfoc/gmsm v1.4.1/go.mod h1:j4INPkHWMrhJb38G+J6W4Tw0AbuN8Thu3PbdVYhVcTE=
-github.com/xtaci/kcp-go/v5 v5.6.20 h1:eoZKuVCjU3wVjoiwZyCwXeuO84na/DbBFvpPdPG9NvA=
-github.com/xtaci/kcp-go/v5 v5.6.20/go.mod h1:pASZrdycJanBE9aFNhA9UK5cTDc1p27+5s4Dw3RsH1I=
+github.com/xtaci/kcp-go/v5 v5.6.21 h1:ypEakZSFGFAY9P0PYNylUVSftbTFQCKGKaR0H20q6sM=
+github.com/xtaci/kcp-go/v5 v5.6.21/go.mod h1:LDL3AzFyG+7G9q0+h0X5UfJ9xhjWTgSMTDz40IqCoTk=
 github.com/xtaci/lossyconn v0.0.0-20190602105132-8df528c0c9ae h1:J0GxkO96kL4WF+AIT3M4mfUVinOCPgf2uUWYFUzN0sM=
 github.com/xtaci/lossyconn v0.0.0-20190602105132-8df528c0c9ae/go.mod h1:gXtu8J62kEgmN++bm9BVICuT/e8yiLI2KFobd/TRFsE=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
