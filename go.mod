@@ -7,7 +7,7 @@ toolchain go1.23.6
 require (
 	github.com/davyxu/cellnet v4.1.0+incompatible
 	github.com/davyxu/golog v0.1.0
-	github.com/xtaci/kcp-go/v5 v5.6.21
+	github.com/xtaci/kcp-go/v5 v5.6.22
 	golang.org/x/crypto v0.38.0
 	google.golang.org/protobuf v1.36.6
 )
